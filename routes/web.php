@@ -2,7 +2,6 @@
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('posts/{post}', function ($postName) {
     return view('post', [
-        'post' => Post::find($postName)
+        'post' => Post::findOrFail($postName)
     ]);
 })->whereNumber('post');
 
