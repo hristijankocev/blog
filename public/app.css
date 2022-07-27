@@ -6,9 +6,16 @@ body {
 article {
     max-width: 75vw;
     margin: auto;
+    position: relative;
 }
 
 article + article {
     padding-top: 2em;
     border-top: 1px solid darkgray;
+}
+
+.float-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

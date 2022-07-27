@@ -5,8 +5,12 @@
 
     <x-slot name="content">
         <article class="container">
-            <h1>{{ $post->title }}</h1>
+            <h1>{!! $post->title !!}</h1>
+
             {!! $post->body !!}
+
+            <a href="#" class="float-right">{{  $post->category->name  }}</a>
+
             <a href="/">Go Back</a>
         </article>
     </x-slot>

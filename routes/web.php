@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('posts', [
-        'posts' => Post::findAll()
+        'posts' => Post::all()->sortByDesc('created_at')
     ]);
 });
 
-Route::get('posts/{post}', function ($postName) {
+Route::get('posts/{post:id}', function (Post $post) {
     return view('post', [
-        'post' => Post::findOrFail($postName)
+        'post' => $post
     ]);
-})->whereNumber('post');
+});
 
