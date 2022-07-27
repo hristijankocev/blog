@@ -15,9 +15,7 @@
 {{--    @formatter:on--}}
 </head>
 <body>
-<header>
-    {{$banner}}
-</header>
+{{$banner}}
 
 {{$content}}
 

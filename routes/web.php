@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +18,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('posts', [
-        'posts' => Post::all()->sortByDesc('created_at')
+        'posts' => Post::with(['category', 'author'])->get()->sortByDesc('created_at')
     ]);
 });
 
 Route::get('posts/{post:id}', function (Post $post) {
     return view('post', [
-        'post' => $post
+        'post' => $post->load(['category', 'author'])
     ]);
 });
 
+Route::get('posts/category/{category:slug}', function (Category $category) {
+    return view('posts', [
+        'posts' => $category->posts->load(['category', 'author'])
+    ]);
+});
+
+Route::get('posts/author/{author:username}', function (User $author) {
+    return view('posts', [
+        'posts' => $author->posts->load(['category', 'author'])
+    ]);
+});

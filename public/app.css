@@ -3,7 +3,7 @@ body {
     color: #232323;
 }
 
-article {
+html {
     max-width: 75vw;
     margin: auto;
     position: relative;
