@@ -26,11 +26,21 @@ class DatabaseSeeder extends Seeder
             'slug' => 'hobbies-and-stuff'
         ]);
 
+        $cat2 = Category::factory()->create([
+            'name' => 'Personal',
+            'slug' => 'personal-sluggish-slug'
+        ]);
+
         Post::factory(5)->create([
             'user_id' => $user->id,
             'category_id' => $cat->id
         ]);
 
-        Post::factory(5)->create();
+        Post::factory(1)->create([
+            'user_id' => $user->id,
+            'category_id' => $cat2->id
+        ]);
+
+        Post::factory(30)->create();
     }
 }

@@ -16,26 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('posts', [
-        'posts' => Post::with(['category', 'author'])->get()->sortByDesc('created_at')
-    ]);
-});
+Route::get('/', fn() => view('posts', [
+    'posts' => Post::with(['category', 'author'])->get()->sortByDesc('created_at'),
+    'categories' => Category::all(),
+    'currentCategory' => null
+]))->name('home');
 
-Route::get('posts/{post:id}', function (Post $post) {
-    return view('post', [
-        'post' => $post->load(['category', 'author'])
-    ]);
-});
+Route::get('posts/{post:id}', fn(Post $post) => view('post', [
+    'post' => $post->load(['category', 'author'])
+]))->name('post');
 
-Route::get('posts/category/{category:slug}', function (Category $category) {
-    return view('posts', [
-        'posts' => $category->posts->load(['category', 'author'])
-    ]);
-});
+Route::get('posts/category/{category:slug}', fn(Category $category) => view('posts', [
+    'posts' => $category->posts->load(['category', 'author']),
+    'categories' => Category::all(),
+    'currentCategory' => $category
+]))->name('category');
 
-Route::get('posts/author/{author:username}', function (User $author) {
-    return view('posts', [
-        'posts' => $author->posts->load(['category', 'author'])
-    ]);
-});
+Route::get('posts/author/{author:username}', fn(User $author) => view('posts', [
+    'posts' => $author->posts->load(['category', 'author']),
+    'categories' => Category::all(),
+    'currentCategory' => null
+]))->name('author');
