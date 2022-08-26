@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -16,15 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn() => view('posts', [
-    'posts' => Post::with(['category', 'author'])->get()->sortByDesc('created_at'),
-    'categories' => Category::all(),
-    'currentCategory' => null
-]))->name('home');
+Route::get('/', [PostController::class, 'index'])->name('home');
 
-Route::get('posts/{post:id}', fn(Post $post) => view('post', [
-    'post' => $post->load(['category', 'author'])
-]))->name('post');
+Route::get('posts/{post:id}', [PostController::class, 'show'])->name('post');
 
 Route::get('posts/category/{category:slug}', fn(Category $category) => view('posts', [
     'posts' => $category->posts->load(['category', 'author']),

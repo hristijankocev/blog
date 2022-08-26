@@ -5,7 +5,8 @@
         Latest <span class="text-red-500">Lorem Ipsum</span> News
     </h1>
 
-    <h2 class="inline-flex mt-2">By Hristijan Kocev <img src="/images/robot.png" alt="Robot" style="max-height: 24px"></h2>
+    <h2 class="inline-flex mt-2">By Hristijan Kocev <img src="/images/robot.png" alt="Robot" style="max-height: 24px">
+    </h2>
 
     <p class="text-sm mt-14">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iste maiores reprehenderit! Amet dignissimos
@@ -75,7 +76,7 @@
         <!-- Search -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
             <form method="GET" action="#">
-                <input type="text" name="search" placeholder="Find something"
+                <input type="text" name="search" placeholder="Find something" value="{{ request('search') }}"
                        class="bg-transparent placeholder-black font-semibold text-sm">
             </form>
         </div>
