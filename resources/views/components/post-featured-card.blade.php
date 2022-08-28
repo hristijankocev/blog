@@ -9,7 +9,7 @@
         <div class="flex-1 flex flex-col justify-between">
             <header class="mt-8 lg:mt-0">
                 <div class="space-x-2">
-                    <a href="/posts/category/{{  $post->category->slug  }}"
+                    <a href="/?category={{  $post->category->slug  }}"
                        class="px-3 py-1 border border-red-300 rounded-full text-red-300 text-xs uppercase font-semibold"
                        style="font-size: 10px"> {{ $post->category->name }} </a>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="flex items-center text-sm">
                     <img src="/images/robot.png" alt="Robot" style="max-height: 64px">
                     <div class="ml-3">
-                        <a href="/posts/author/{{  $post->author->username  }}">
+                        <a href="/?author={{  $post->author->username  }}">
                             <h5 class="font-bold">{{  $post->author->name  }}</h5>
                         </a>
                     </div>

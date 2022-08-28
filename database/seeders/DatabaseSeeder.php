@@ -21,6 +21,11 @@ class DatabaseSeeder extends Seeder
             'username' => 'johndoe'
         ]);
 
+        $user2 = User::factory()->create([
+            'name' => 'Python Doe',
+            'username' => 'pythondoe'
+        ]);
+
         $cat = Category::factory()->create([
             'name' => 'Hobbies',
             'slug' => 'hobbies-and-stuff'
@@ -41,6 +46,15 @@ class DatabaseSeeder extends Seeder
             'category_id' => $cat2->id
         ]);
 
-        Post::factory(30)->create();
+        Post::factory(1)->create([
+            'user_id' => $user2->id,
+            'category_id' => $cat2->id
+        ]);
+
+        Post::factory(3)->create([
+            'user_id' => $user2->id
+        ]);
+
+        Post::factory(10)->create();
     }
 }

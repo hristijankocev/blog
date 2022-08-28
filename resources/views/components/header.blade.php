@@ -16,29 +16,8 @@
     <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-8">
         <!--  Category -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
-            <label>
-                <select class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold"
-                        style=""
-                        @change="window.location = $el.value">
-                    <option selected disabled>Category</option>
-                    <option value="/">All</option>
-                    @foreach($categories as $category)
-                        @isset($currentCategory)
-                            <option
-                                {{ $currentCategory->is($category) ? 'selected' : '' }}
-                                value="/posts/category/{{ $category->slug }}"
-                                class="{{ $currentCategory->is($category) ? 'text-white bg-blue-500' : '' }}">
-                                {{ ucfirst($category->name) }}
-                            </option>
-                        @else
-                            <option
-                                value="/posts/category/{{ $category->slug }}">{{ ucfirst($category->name) }}
-                            </option>
-                        @endif
 
-                    @endforeach
-                </select>
-            </label>
+            <x-category-dropdown></x-category-dropdown>
 
             <svg class="transform -rotate-90 absolute pointer-events-none" style="right: 12px;" width="22"
                  height="22" viewBox="0 0 22 22">
@@ -75,7 +54,10 @@
 
         <!-- Search -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
-            <form method="GET" action="#">
+            <form method="GET" action="/">
+                @if(request('category'))
+                    <input type="hidden" value="{{ request('category') }}" name="category">
+                @endif
                 <input type="text" name="search" placeholder="Find something" value="{{ request('search') }}"
                        class="bg-transparent placeholder-black font-semibold text-sm">
             </form>
