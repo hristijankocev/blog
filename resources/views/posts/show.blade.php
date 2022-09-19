@@ -49,6 +49,49 @@
                 {!! $post->body !!}
             </div>
         </div>
+
+        <section class="col-span-8 col-start-5 mt-10 space-y-2">
+            <hr>
+            <div class="bg-gray-100 border border-gray-300 rounded-xl p-5 lg:grid lg:grid-cols-12">
+                @auth
+                    <div class="flex-shrink-0 pb-2 col-span-12">
+                        <x-error for="comment"></x-error>
+                    </div>
+                    <div class="col-span-2">
+                        <img src="{{ asset('images/avatar.jpg') }}" alt="avatar-placeholder" width="70" height="70"
+                             class="rounded-xl">
+                    </div>
+                    <div class="col-span-10">
+                        <form method="POST" action="/comments" class="h-full">
+                            @csrf
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <textarea
+                                rows="5"
+                                class="w-full h-100 bg-gray-100 border border-gray-200 focus:bg-white focus:border-gray-500 focus:outline-none py-2 px-2 rounded text-gray-700"
+                                maxlength="255" id="comment-body" name="comment"
+                                placeholder="Write a comment..."
+                                required></textarea>
+                            <button
+                                class="bg-blue-600 hover:bg-blue-800 text-white font-bold px-4 py-2 mt-3 rounded focus:outline-none focus:shadow-outline text-sm w-full"
+                                type="submit">
+                                Post comment
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <p class="col-span-12 text-sm"><i><a href="/login" class="font-semibold">Login</a> to post a
+                            comment.</i>
+                    </p>
+                @endauth
+            </div>
+            @if($post->comments()->count())
+                @foreach($post->comments as $comment)
+                    <x-post-comment :comment="$comment"></x-post-comment>
+                @endforeach
+            @else
+                <p class="text-sm">No comments on this post yet :(</p>
+            @endif
+        </section>
     </article>
 
     <x-footer></x-footer>

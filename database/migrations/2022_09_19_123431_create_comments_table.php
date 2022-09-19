@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,15 +14,16 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Category::class);
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->string('title');
-            $table->text('excerpt');
+            $table->foreignIdFor(Post::class)
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->text('body');
             $table->timestamps();
-            $table->timestamp('published_at')->nullable();
         });
     }
 
@@ -33,6 +34,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('comments');
     }
 };
