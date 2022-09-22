@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -29,3 +30,5 @@ Route::post('/login', [LoginController::class, 'authenticate'])
 
 Route::post('/comments', [CommentController::class, 'store'])
     ->middleware('auth');
+
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
