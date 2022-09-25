@@ -25,6 +25,10 @@
                     class="text-xs font-bold uppercase px-5 text-gray-800 ml-3 rounded-full py-3">
                     Welcome back, {{ auth()->user()->name }}!
                 </span>
+                <a href="/admin/posts/create"
+                   class="bg-red-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5 hover:text-gray-800">
+                    Create a post
+                </a>
                 <form action="/logout" class="inline" method="POST">
                     @csrf
                     <button type="submit"

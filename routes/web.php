@@ -13,6 +13,12 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:id}', [PostController::class, 'show'])->name('post');
 
+Route::get('admin/posts/create', [PostController::class, 'create'])
+    ->middleware('admin');
+
+Route::post('admin/posts/create', [PostController::class, 'store'])
+    ->middleware('admin');
+
 Route::get('/register', [RegisterController::class, 'register'])
     ->middleware('guest');
 
@@ -23,7 +29,8 @@ Route::post('/logout', [SessionController::class, 'destroy'])
     ->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'show'])
-    ->middleware('guest');
+    ->middleware('guest')
+    ->name('login');
 
 Route::post('/login', [LoginController::class, 'authenticate'])
     ->middleware('guest');

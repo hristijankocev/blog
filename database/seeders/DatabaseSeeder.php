@@ -18,14 +18,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $user = User::factory()->create([
-            'name' => 'John Doe',
-            'username' => 'johndoe',
-            'password' => 'test'
+            'name' => 'Hristijan Kocev',
+            'username' => 'hristijankocev',
+            'password' => 'test123A!'
         ]);
 
         $user2 = User::factory()->create([
             'name' => 'Python Doe',
-            'username' => 'pythondoe'
+            'username' => 'pythondoe',
+            'password' => 'test123A!'
         ]);
 
         $cat = Category::factory()->create([
