@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -17,7 +16,7 @@ class PostController extends Controller
             'posts' => Post::with(['category', 'author'])
                 ->latest()
                 ->filter(request(['search', 'category', 'author']))
-                ->paginate(3)
+                ->paginate(6)
                 ->withQueryString()
         ]);
     }
@@ -33,9 +32,13 @@ class PostController extends Controller
             'category_id' => ['required', 'exists:\App\Models\Category,id'],
             'title' => ['required', 'min:2', 'max:255'],
             'body' => ['required', 'min:2', 'max:255'],
-            'excerpt' => ['required', 'min:2', 'max:255']
+            'excerpt' => ['required', 'min:2', 'max:255'],
+            'thumbnail' => ['required', 'image', 'max:5000']
         ]);
 
+        $thumbnail = $request->file('thumbnail');
+
+        $validated['thumbnail'] = $thumbnail->store('thumbnails');
         $validated['user_id'] = auth()->id();
 
         $post = Post::create($validated);

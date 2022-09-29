@@ -1,7 +1,7 @@
 @props(['comment'])
 <article class="flex bg-gray-100 border border-gray-300 rounded-xl p-5 space-x-5">
     <div class="flex-shrink-0">
-        <img src="{{ asset('images/avatar.jpg') }}" alt="avatar-placeholder" width="70" height="70"
+        <img src="{{ asset('/storage/site/avatar.jpg') }}" alt="avatar-placeholder" width="70" height="70"
              class="rounded-xl">
     </div>
     <div>

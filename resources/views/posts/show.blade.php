@@ -1,7 +1,9 @@
 <x-layout>
-    <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
+    <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10 mt-20">
         <div class="col-span-4 lg:text-center lg:pt-14 mb-10">
-            <img src="/images/illustration-2.jpg" alt="" class="rounded-xl">
+            <img
+                src="{{ $post->thumbnail != null ? asset('/storage/' . $post->thumbnail) : '/storage/site/illustration-2.jpg' }}"
+                alt="thumbnail" class="rounded-xl">
 
             <p class="mt-4 block text-gray-400 text-xs">
                 Published
@@ -9,7 +11,7 @@
             </p>
 
             <div class="flex items-center lg:justify-center text-sm mt-4">
-                <img src="/images/robot.png" alt="Robot" style="max-height: 64px">
+                <img src="{{ asset('storage/site/robot.png') }}" alt="Robot" style="max-height: 64px">
                 <div class="ml-3 text-left">
                     <a href="/?author={{ $post->author->username }}">
                         <h5 class="font-bold">{{  $post->author->name  }}</h5>
@@ -58,7 +60,7 @@
                         <x-error for="comment"></x-error>
                     </div>
                     <div class="col-span-2">
-                        <img src="{{ asset('images/avatar.jpg') }}" alt="avatar-placeholder" width="70" height="70"
+                        <img src="{{ asset('storage/site/robot.png') }}" alt="avatar-placeholder" width="70" height="70"
                              class="rounded-xl">
                     </div>
                     <div class="col-span-10">
@@ -94,5 +96,4 @@
         </section>
     </article>
 
-    <x-footer></x-footer>
 </x-layout>

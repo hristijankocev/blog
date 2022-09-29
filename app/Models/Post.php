@@ -16,7 +16,8 @@ class Post extends Model
         'excerpt',
         'body',
         'category_id',
-        'user_id'
+        'user_id',
+        'thumbnail'
     ];
 
     public function category(): BelongsTo

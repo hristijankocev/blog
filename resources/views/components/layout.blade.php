@@ -14,7 +14,7 @@
     <nav class="md:flex md:justify-between md:items-center">
         <div class="flex justify-center">
             <a href="/">
-                <img src="/images/logo.png" alt="Lorem Ipsum" width="190" height="auto">
+                <img src="{{ asset('storage/site/logo.png') }}" alt="Lorem Ipsum" width="190" height="auto">
             </a>
         </div>
 
@@ -55,6 +55,7 @@
 
     <x-flash></x-flash>
 
+    <x-footer></x-footer>
 </section>
 </body>
 
