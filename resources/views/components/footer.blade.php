@@ -14,7 +14,8 @@
                     </label>
                     <input id="email" type="text" placeholder="Your email address"
                            class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none"
-                           name="email">
+                           name="email"
+                           required>
                     <x-error for="email"></x-error>
                 </div>
                 <button type="submit"

@@ -15,7 +15,7 @@
                     <input
                         class="@error('username') border-red-500 @enderror appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="username" type="text" placeholder="jane.doe" name="username"
-                        value="{{ old('username') }}">
+                        value="{{ old('username') }}" autocomplete="username">
                     <x-error for="username"></x-error>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <input
                         class="@error('email') border-red-500 @enderror appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="email" type="email" placeholder="jane.doe@example.com" name="email"
-                        value="{{ old('email') }}">
+                        value="{{ old('email') }}" autocomplete="current-password">
                     <x-error for="email"></x-error>
                 </div>
             </div>
