@@ -27,16 +27,18 @@
                     </x-slot>
                     <x-slot name="options">
                         <div class="divide-y w-44 divide-gray-300 dark:bg-gray-700 dark:divide-gray-600">
-                            <div>
-                                <x-dropdown-item href="/admin/dashboard"
-                                                 active="{{ request()->is('admin/dashboard') }}">
-                                    Dashboard
-                                </x-dropdown-item>
-                                <x-dropdown-item href="/admin/posts/create"
-                                                 active="{{ Illuminate\Support\Facades\Route::is('post.create') }}">
-                                    New post
-                                </x-dropdown-item>
-                            </div>
+                            @if(auth()->user()->username === 'hristijankocev')
+                                <div>
+                                    <x-dropdown-item href="/admin/posts"
+                                                     active="{{ request()->is('admin/posts') }}">
+                                        Dashboard
+                                    </x-dropdown-item>
+                                    <x-dropdown-item href="/admin/posts/create"
+                                                     active="{{ Illuminate\Support\Facades\Route::is('post.create') }}">
+                                        New post
+                                    </x-dropdown-item>
+                                </div>
+                            @endif
                             <x-dropdown-item href="/logout" x-data="{}"
                                              @click.prevent="document.querySelector('#logout-form').submit()">
                                 Logout

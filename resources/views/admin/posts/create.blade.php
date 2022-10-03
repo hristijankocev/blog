@@ -2,11 +2,11 @@
     <x-setting>
         <x-slot name="heading">Create a post</x-slot>
         <form action="/admin/posts/create" method="POST"
-              class="bg-white shadow-md rounded px-4"
+              class="bg-white px-4"
               enctype="multipart/form-data">
             @csrf
 
-            <div class="w-full max-w-full mx-auto">
+            <div class="max-w-4xl mx-auto">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                         Title
