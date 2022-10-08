@@ -36,27 +36,25 @@ Route::post('/comments', [CommentController::class, 'store'])
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
 
 // Admin
-Route::get('admin/posts', [AdminPostController::class, 'index'])
-    ->middleware('admin')
-    ->name('post.admin.index');
+Route::middleware('can:admin')->group(function () {
+    Route::get('admin/posts', [AdminPostController::class, 'index'])
+        ->name('post.admin.index');
 
-Route::get('admin/posts/create', [AdminPostController::class, 'create'])
-    ->middleware('admin')
-    ->name('post.create');
-Route::post('admin/posts/create', [AdminPostController::class, 'store'])
-    ->middleware('admin');
+    Route::get('admin/posts/create', [AdminPostController::class, 'create'])
+        ->name('post.create');
 
-Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])
-    ->middleware('admin')
-    ->name('post.edit');
-Route::patch('admin/posts/{post:id}', [AdminPostController::class, 'update'])
-    ->middleware('admin');
+    Route::post('admin/posts/create', [AdminPostController::class, 'store']);
 
-Route::delete('/admin/posts/{post:id}', [AdminPostController::class, 'destroy'])
-    ->middleware('admin');
+    Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])
+        ->name('post.edit');
 
-Route::patch('/admin/posts/{post:id}/status', [AdminPostController::class, 'status'])
-    ->middleware('admin');
+    Route::patch('admin/posts/{post:id}', [AdminPostController::class, 'update']);
+
+    Route::delete('/admin/posts/{post:id}', [AdminPostController::class, 'destroy']);
+
+    Route::patch('/admin/posts/{post:id}/status', [AdminPostController::class, 'status']);
+});
+
 
 
 

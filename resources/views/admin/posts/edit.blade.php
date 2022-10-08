@@ -73,6 +73,9 @@
                         name="thumbnail"
                         type="file"
                         accept="image/*"/>
+                    @if($post->thumbnail)
+                        <img src="/storage/{{ $post->thumbnail }}" alt="post-thumbnail" class="max-w-md mt-2 mx-auto">
+                    @endif
                     <x-error for="thumbnail" class="pt-2"></x-error>
                 </div>
 
