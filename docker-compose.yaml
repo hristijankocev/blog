@@ -29,8 +29,6 @@ services:
     container_name: ${APP_NAME}_php
     environment:
       - APP_ENV=${APP_ENV}
-    volumes:
-      - ./:/var/www/html
     ports:
       - "9001:9000"
     networks:
