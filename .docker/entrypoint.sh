@@ -4,6 +4,12 @@ if [ ! -f "vendor/autoload.php" ]; then
     composer install --no-progress --no-interaction
 fi
 
+if [ ! -d "node_modules" ]; then
+    npm install
+fi
+
+npm run build
+
 if [ ! -f ".env" ]; then
     echo "Creating .env file for env $APP_ENV"
     cp .env.example .env
