@@ -38,11 +38,11 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Install application dependencies
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
-# Generate Laravel application key
-RUN php artisan key:generate
-
 # Check if .env file exists, if not copy .env.example
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
+
+# Generate Laravel application key
+RUN php artisan key:generate
 
 # Link storage directory
 RUN php artisan storage:link
