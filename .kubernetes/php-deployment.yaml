@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php
+  labels:
+    app: php
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: php
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: php
+        tier: backend
+    spec:
+      volumes:
+        - name: php-pv
+          persistentVolumeClaim:
+            claimName: app-pvc
+      containers:
+        - name: php
+          image: hristijankocev/blog_php:1.0
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: php-pv
+              mountPath: /code
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - |
+                    cp -R /var/www/. /code/app \
+                      && chown -R www-data:www-data /code/app/html \
+                      && php /code/app/html/artisan storage:link
