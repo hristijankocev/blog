@@ -28,6 +28,7 @@ spec:
       containers:
         - name: php
           image: hristijankocev/blog_php:1.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 9000
           volumeMounts:
@@ -45,5 +46,6 @@ spec:
                   - |
                     cp -R /var/www/. /code/app \
                       && chown -R www-data:www-data /code/app/html \
+                      && rm -rf /code/app/html/public/storage \
                       && php /code/app/html/artisan storage:link \
                       && php /code/app/html/artisan migrate
