@@ -4,7 +4,6 @@ metadata:
   name: webservers
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
-#    traefik.ingress.kubernetes.io/router.middlewares: default-webservers@kubernetescrd
 spec:
   rules:
     - host: localhost
