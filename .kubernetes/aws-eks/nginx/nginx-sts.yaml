@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx
+  namespace: development
+  labels:
+    app: nginx
+    tier: backend
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  serviceName: nginx-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: nginx
+        tier: backend
+    spec:
+      containers:
+        - name: nginx
+          image: docker.io/nginx:stable
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+            - name: php-pv
+              mountPath: /code
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-configmap
+        - name: php-pv
+          persistentVolumeClaim:
+            claimName: app-pvc
