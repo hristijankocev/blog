@@ -37,13 +37,30 @@ jobs:
           push: true
           tags: hristijankocev/blog_php:1.0-${{ env.NOW }}
 
-      - name: Deploy new app version on cluster
-        uses: ianbelcher/eks-kubectl-action@master
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          cluster_name: ${{ secrets.CLUSTER_NAME }}
-          eks_role_arn: ${{ secrets.EKS_ROLE_ARN }}
-          kubernetes_version: v1.27.0
-          args: set image deployment/php php=hristijankocev/blog_php:1.0-${{ env.NOW }} --namespace=${{ secrets.EKS_NAMESPACE }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: deploy to cluster
+        uses: kodermax/kubectl-aws-eks@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: my-app
+          IMAGE_TAG: blog_php:1.0-${{ env.NOW }}
+        with:
+          args: set image deployment/php php=hristijankocev/blog_php:1.0-${{ env.NOW }} --namespace=${{ secrets.EKS_NAMESPACE }} --record
+
+      - name: verify deployment
+        uses: kodermax/kubectl-aws-eks@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: rollout status deployment/php
