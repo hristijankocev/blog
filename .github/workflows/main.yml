@@ -16,8 +16,9 @@ jobs:
         uses: actions/checkout@v3
 
       -
-        name: Set env for commit short SHA
-        run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        name: Get git commit
+        id: commit
+        uses: pr-mpt/actions-commit-hash@v2
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -37,7 +38,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: hristijankocev/blog_php:1.0-${{ env.SHA_SHORT }}
+          tags: hristijankocev/blog_php:1.0-${{ steps.commit.outputs.short }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -56,9 +57,9 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: my-app
-          IMAGE_TAG: blog_php:1.0-${{ env.SHA_SHORT }}
+          IMAGE_TAG: blog_php:1.0-${{ steps.commit.outputs.short }}
         with:
-          args: set image deployment/php php=hristijankocev/blog_php:1.0-${{ env.SHA_SHORT }} --namespace=${{ secrets.EKS_NAMESPACE }} --record
+          args: set image deployment/php php=hristijankocev/blog_php:1.0-${{ steps.commit.outputs.short }} --namespace=${{ secrets.EKS_NAMESPACE }} --record
 
       - name: verify deployment
         uses: kodermax/kubectl-aws-eks@master
