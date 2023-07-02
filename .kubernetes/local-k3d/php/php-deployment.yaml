@@ -6,7 +6,7 @@ metadata:
     app: php
     tier: backend
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: php
@@ -44,7 +44,7 @@ spec:
                   - /bin/sh
                   - -c
                   - |
-                    cp -R /var/www/. /code/app \
+                    cp -R -u /var/www/. /code/app \
                       && chown -R www-data:www-data /code/app/html \
                       && rm -rf /code/app/html/public/storage \
                       && php /code/app/html/artisan storage:link \
