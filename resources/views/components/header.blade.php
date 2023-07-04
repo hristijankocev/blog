@@ -5,7 +5,7 @@
         Latest <span class="text-red-500">Lorem Ipsum</span> News
     </h1>
 
-    <h2 class="inline-flex mt-2">By Hristijan Kocev ☺<img src="{{ asset('storage/site/robot.png') }}"
+    <h2 class="inline-flex mt-2">By Hristijan Kocev ☺ - kiii-demo-change ♣<img src="{{ asset('storage/site/robot.png') }}"
                                                          alt="Robot"
                                                          style="max-height: 24px">
     </h2>

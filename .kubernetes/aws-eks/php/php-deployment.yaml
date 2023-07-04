@@ -28,7 +28,7 @@ spec:
             claimName: app-pvc
       containers:
         - name: php
-          image: docker.io/hristijankocev/blog_php:1.0
+          image: docker.io/hristijankocev/blog_php:1.0-fe9d98a
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
